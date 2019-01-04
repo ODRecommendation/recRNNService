@@ -35,7 +35,7 @@ class ModelController @Inject()(cc: ControllerComponents) extends AbstractContro
         println(_)
       )
       val skuIndex = sku.map(x => leapTransform(
-        requestString = x, inputCol = "SKU_NUM", outputCol = "SKU_INDEX", transformer = params.userIndexerModel.get, mapper = mapper
+        requestString = x, inputCol = "SKU_NUM", outputCol = "SKU_INDEX", transformer = params.skuIndexerModel.get, mapper = mapper
       ).toFloat).reverse.padTo(10, 0f).reverse
 
       val inputSample = Array(Sample(Tensor(skuIndex.toArray, Array(10))))

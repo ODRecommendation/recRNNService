@@ -18,14 +18,14 @@ import resource.managed
 
 case class ModelParams(
                         recModelPath: String,
-                        userIndexerModelPath: String,
+                        skuIndexerModelPath: String,
                         skuLookUpPath: String,
                         env: String,
                         bucketName: String,
                         var recModel: Option[AbstractModule[Activity, Activity, Float]],
                         var recModelVersion: Option[Long],
-                        var userIndexerModel: Option[Transformer],
-                        var userIndexerModelVersion: Option[Long],
+                        var skuIndexerModel: Option[Transformer],
+                        var skuIndexerModelVersion: Option[Long],
                         var skuLookUp: Option[List[(String, String)]]
                  )
 
@@ -41,19 +41,19 @@ object ModelParams {
 
   def apply(
              recModelPath: String,
-             userIndexerModelPath: String,
+             skuIndexerModelPath: String,
              skuLookUpPath: String,
              env: String
            ): ModelParams = ModelParams(
     recModelPath,
-    userIndexerModelPath,
+    skuIndexerModelPath,
     skuLookUpPath,
     env,
     if (env == "prod" || env == "canary") "ecomdatascience-p" else "ecomdatascience-np",
     loadBigDL(recModelPath),
     loadVersion(recModelPath),
-    loadMleap(userIndexerModelPath),
-    loadVersion(userIndexerModelPath),
+    loadMleap(skuIndexerModelPath),
+    loadVersion(skuIndexerModelPath),
     loadLookUp(skuLookUpPath)
   )
 
@@ -136,8 +136,8 @@ object ModelParams {
   def refresh(params: ModelParams): ModelParams = {
     params.recModel = loadBigDL(params.recModelPath)
     params.recModelVersion = loadVersion(params.recModelPath)
-    params.userIndexerModel = loadMleap(params.userIndexerModelPath)
-    params.userIndexerModelVersion = loadVersion(params.userIndexerModelPath)
+    params.skuIndexerModel = loadMleap(params.skuIndexerModelPath)
+    params.skuIndexerModelVersion = loadVersion(params.skuIndexerModelPath)
 
     params
   }
