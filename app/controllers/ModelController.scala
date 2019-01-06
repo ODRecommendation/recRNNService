@@ -51,7 +51,7 @@ class ModelController @Inject()(cc: ControllerComponents) extends AbstractContro
                 i =>
                   val predict = indices._2.valueAt(i).toInt - 1
                   val probability = Math.exp(_output.valueAt(predict).toDouble)
-                  Map(s"predict$i" -> revertStringIndex(predict.toString), "probability1" -> probability)
+                  Map(s"predict$i" -> revertStringIndex(predict.toString), s"probability$i" -> probability)
               }
               predict.toArray
             }.head
