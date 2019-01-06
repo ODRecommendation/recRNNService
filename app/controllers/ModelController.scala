@@ -47,11 +47,11 @@ class ModelController @Inject()(cc: ControllerComponents) extends AbstractContro
             .map { x =>
               val _output = x.toTensor[Float]
               val indices = _output.topk(5, 1, false)
-              val predict1 = indices._2.valueAt(1).toInt
-              val predict2 = indices._2.valueAt(2).toInt
-              val predict3 = indices._2.valueAt(3).toInt
-              val predict4 = indices._2.valueAt(4).toInt
-              val predict5 = indices._2.valueAt(5).toInt
+              val predict1 = indices._2.valueAt(1).toInt - 1
+              val predict2 = indices._2.valueAt(2).toInt - 1
+              val predict3 = indices._2.valueAt(3).toInt - 1
+              val predict4 = indices._2.valueAt(4).toInt - 1
+              val predict5 = indices._2.valueAt(5).toInt - 1
               val probability1 = Math.exp(_output.valueAt(predict1).toDouble)
               val probability2 = Math.exp(_output.valueAt(predict2).toDouble)
               val probability3 = Math.exp(_output.valueAt(predict3).toDouble)
