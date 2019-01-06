@@ -46,24 +46,14 @@ class ModelController @Inject()(cc: ControllerComponents) extends AbstractContro
           val predict = LocalPredictor(params.recModel.get).predict(inputSample)
             .map { x =>
               val _output = x.toTensor[Float]
-              val indices = _output.topk(5, 1, false)
-              val predict1 = indices._2.valueAt(1).toInt - 1
-              val predict2 = indices._2.valueAt(2).toInt - 1
-              val predict3 = indices._2.valueAt(3).toInt - 1
-              val predict4 = indices._2.valueAt(4).toInt - 1
-              val predict5 = indices._2.valueAt(5).toInt - 1
-              val probability1 = Math.exp(_output.valueAt(predict1).toDouble)
-              val probability2 = Math.exp(_output.valueAt(predict2).toDouble)
-              val probability3 = Math.exp(_output.valueAt(predict3).toDouble)
-              val probability4 = Math.exp(_output.valueAt(predict4).toDouble)
-              val probability5 = Math.exp(_output.valueAt(predict5).toDouble)
-              Array(
-                Map("predict1" -> revertStringIndex(predict1.toString), "probability1" -> probability1),
-                Map("predict2" -> revertStringIndex(predict2.toString), "probability2" -> probability2),
-                Map("predict3" -> revertStringIndex(predict3.toString), "probability3" -> probability3),
-                Map("predict4" -> revertStringIndex(predict4.toString), "probability4" -> probability4),
-                Map("predict5" -> revertStringIndex(predict5.toString), "probability5" -> probability5)
-              )
+              val indices = _output.topk(20, 1, false)
+              val predict = (1 to 20).map{
+                i =>
+                  val predict = indices._2.valueAt(i).toInt - 1
+                  val probability = Math.exp(_output.valueAt(predict).toDouble)
+                  Map(s"predict$i" -> revertStringIndex(predict.toString), "probability1" -> probability)
+              }
+              predict.toArray
             }.head
           predict
         case None => Map("predict" -> "N/A", "probability" -> 0.0)
