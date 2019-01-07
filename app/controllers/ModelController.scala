@@ -8,7 +8,6 @@ import javax.inject._
 import models.LoadModel
 import play.api.libs.json._
 import play.api.mvc._
-import play.libs.F.Tuple
 import utilities.Helper._
 
 import scala.collection.immutable.Map
