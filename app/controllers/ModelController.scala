@@ -57,7 +57,7 @@ class ModelController @Inject()(cc: ControllerComponents) extends AbstractContro
                     //                      val probability = Math.exp(_output.valueAt(predict).toDouble)
                     Map(
                       i -> Map(
-                        "id" -> predict,
+                        "id" -> revertStringIndex(predict.toString),
                         "url" -> "N/A",
                         "categoryID" -> "N/A",
                         "categoryName" -> "N/A"
