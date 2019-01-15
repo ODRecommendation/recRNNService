@@ -31,9 +31,6 @@ class ModelController @Inject()(cc: ControllerComponents) extends AbstractContro
       val requestJson = request.body.toString()
       val requestMap = mapper.readValue(requestJson, classOf[Map[String, Any]])
       val sku = requestMap("SKU_NUM").asInstanceOf[List[String]]
-      sku.foreach(
-        println(_)
-      )
       val skuIndex = sku.map(x => leapTransform(
         requestString = x, inputCol = "SKU_NUM", outputCol = "SKU_INDEX", transformer = params.skuIndexerModel.get, mapper = mapper
       ).toFloat).reverse.padTo(10, 0f).reverse
@@ -45,8 +42,8 @@ class ModelController @Inject()(cc: ControllerComponents) extends AbstractContro
           val predict = LocalPredictor(params.recModel.get).predict(inputSample)
             .map { x =>
               val _output = x.toTensor[Float]
-              val indices = _output.topk(11, 1, false)
-              val predict = (1 to 20).map{
+              val indices = _output.topk(numPredicts, 1, false)
+              val predict = (1 to numPredicts).map{
                 i =>
                   val predict = indices._2.valueAt(i).toInt - 1
                   val probability = Math.exp(_output.valueAt(predict).toDouble)

@@ -33,7 +33,7 @@ sbt runProd
 Package code to one jar and run directly using the java command
 ```scala
 sbt -J-Xmx2G assembly
-java -Xmx1g -jar ${location of assembled jar}
+java -Xmx2g -jar ${location of assembled jar}
 ```
 
 ## API Introduction

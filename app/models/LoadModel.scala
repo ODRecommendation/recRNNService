@@ -16,6 +16,7 @@ trait LoadModel {
     "./modelFiles/skuLookUp",
     scala.util.Properties.envOrElse("configEnvironmewnt", "dev")
   )
+  val numPredicts = 10
 
   val actorSystem = ActorSystem()
   val scheduler: Scheduler = actorSystem.scheduler
