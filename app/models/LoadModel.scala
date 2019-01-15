@@ -36,7 +36,7 @@ trait LoadModel {
 
   scheduler.schedule(
     initialDelay = Duration(5, TimeUnit.SECONDS),
-    interval = Duration(5, TimeUnit.SECONDS),
+    interval = Duration(30, TimeUnit.MINUTES),
     runnable = task)
 
   val mapper = new ObjectMapper
