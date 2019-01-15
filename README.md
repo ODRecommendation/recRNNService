@@ -74,10 +74,28 @@ None
 ``` 
 **Return:**
 ```json
-{
-    "predict": "4974347",
-    "probability": 0.8059730950147078
-}
+[
+    {
+        "predict1": "795756",
+        "probability1": 0.00000834272707940318
+    },
+    {
+        "predict2": "870284",
+        "probability2": 6.271142819772266e-11
+    },
+    {
+        "predict3": "798878",
+        "probability3": 0.00001927549222868919
+    },
+    {
+        "predict4": "803342",
+        "probability4": 4.941155854872043e-7
+    },
+    {
+        "predict5": "798284",
+        "probability5": 3.745753121038174e-7
+    }
+]
 ```  
 **Error_message:** ""Nah nah nah nah nah...this request contains bad characters...""
 

@@ -16,7 +16,7 @@ trait LoadModel {
     "./modelFiles/skuLookUp",
     scala.util.Properties.envOrElse("configEnvironmewnt", "dev")
   )
-  val numPredicts = 10
+  val numPredicts = 20
 
   val actorSystem = ActorSystem()
   val scheduler: Scheduler = actorSystem.scheduler
@@ -36,7 +36,7 @@ trait LoadModel {
 
   scheduler.schedule(
     initialDelay = Duration(5, TimeUnit.SECONDS),
-    interval = Duration(5, TimeUnit.SECONDS),
+    interval = Duration(30, TimeUnit.MINUTES),
     runnable = task)
 
   val mapper = new ObjectMapper
