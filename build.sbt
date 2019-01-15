@@ -46,6 +46,7 @@ assemblyMergeStrategy in assembly := {
   case PathList(ps@_*) if ps.last endsWith ".properties" => MergeStrategy.first
   case PathList(ps @ _*) if ps.last endsWith ".html" => MergeStrategy.first
   case PathList(ps @ _*) if ps.last endsWith ".proto" => MergeStrategy.first
+  case PathList(ps @ _*) if ps.last endsWith ".types" => MergeStrategy.concat
   //  case PathList("org", "slf4j", xs@_*) => MergeStrategy.deduplicate
   case "application.conf" => MergeStrategy.concat
   case "unwanted.txt" => MergeStrategy.discard
