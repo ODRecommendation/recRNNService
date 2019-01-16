@@ -9,7 +9,7 @@ RUN /usr/local/sbt/bin/sbt -J-Xmx4G assembly
 
 EXPOSE 9000
 
-RUN chmod -R 777 /modelfiles
+RUN chmod -R 777 /modelFiles
 
 USER sbt
 
