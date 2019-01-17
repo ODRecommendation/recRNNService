@@ -11,17 +11,18 @@ RUN \
   dpkg -i sbt-$SBT_VERSION.deb && \
   rm sbt-$SBT_VERSION.deb && \
   apt-get update && \
+  apt-get install libgomp1 && \
   apt-get install sbt
 
 # Define working directory
 WORKDIR /
 RUN mkdir modelFiles
 
+# Build to fat jar
+RUN sbt -J-Xmx4G clean assembly
+
 # Copy to directory
 COPY /target/scala-2.11/recrnnservice-assembly-1.0-SNAPSHOT.jar ./
 COPY /modelFiles ./modelFiles
-
-# Build to fat jar
-RUN sbt -J-Xmx4G assembly
 
 CMD ["java", "-Xmx2g", "-jar", "recrnnservice-assembly-1.0-SNAPSHOT.jar"]
