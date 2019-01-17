@@ -11,7 +11,7 @@ RUN \
   dpkg -i sbt-$SBT_VERSION.deb && \
   rm sbt-$SBT_VERSION.deb && \
   apt-get update && \
-  apt-get install libgomp1 && \
+  apt-get install libiomp5 && \
   apt-get install sbt
 
 # Define working directory
