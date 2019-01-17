@@ -11,8 +11,10 @@ RUN \
   dpkg -i sbt-$SBT_VERSION.deb && \
   rm sbt-$SBT_VERSION.deb && \
   apt-get update && \
-  apt-get install libiomp5 && \
   apt-get install sbt
+
+#RUN apt-get install libiomp5
+RUN apt-get -y install libiomp5
 
 # Define working directory
 WORKDIR /
@@ -20,6 +22,8 @@ RUN mkdir modelFiles
 
 # Build to fat jar
 RUN sbt -J-Xmx4G clean assembly
+
+EXPOSE 9000
 
 # Copy to directory
 COPY /target/scala-2.11/recrnnservice-assembly-1.0-SNAPSHOT.jar ./
