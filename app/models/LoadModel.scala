@@ -16,6 +16,8 @@ trait LoadModel {
     "./modelFiles/skuLookUp",
     scala.util.Properties.envOrElse("configEnvironmewnt", "dev")
   )
+
+  println(params.env)
   val numPredicts = 20
 
   val actorSystem = ActorSystem()
