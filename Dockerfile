@@ -1,17 +1,27 @@
-FROM 729964090428.dkr.ecr.us-east-1.amazonaws.com/ecom-arch/alpine-scala:2.11.12
+FROM openjdk:8
 
-COPY . .
+# Define env variables
+ENV SBT_VERSION  1.1.2
+ENV SBT_HOME /usr/local/sbt
+ENV PATH ${PATH}:${SBT_HOME}/bin
 
+# Install sbt
+RUN \
+  curl -L -o sbt-$SBT_VERSION.deb http://dl.bintray.com/sbt/debian/sbt-$SBT_VERSION.deb && \
+  dpkg -i sbt-$SBT_VERSION.deb && \
+  rm sbt-$SBT_VERSION.deb && \
+  apt-get update && \
+  apt-get install sbt
 
-RUN /usr/local/sbt/bin/sbt -J-Xmx4G assembly
+# Define working directory
+WORKDIR /
+RUN mkdir modelFiles
 
-#RUN unzip ./target/universal/subscriptionservice-1.0-SNAPSHOT.zip
+# Copy to directory
+COPY /target/scala-2.11/recrnnservice-assembly-1.0-SNAPSHOT.jar ./
+COPY /modelFiles ./modelFiles
 
-EXPOSE 9000
+# Build to fat jar
+RUN sbt -J-Xmx4G assembly
 
-RUN chmod -R 777 /modelFiles
-
-USER sbt
-
-#ENTRYPOINT ["subscriptionservice-1.0-SNAPSHOT/bin/subscriptionservice", "-J-Xms2g", "-J-Xmx4g", "-J-server"]
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["java", "-Xmx2g", "-jar", "recrnnservice-assembly-1.0-SNAPSHOT.jar"]
