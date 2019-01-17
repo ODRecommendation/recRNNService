@@ -31,7 +31,7 @@ case class ModelParams(
 
 object ModelParams {
 
-  private val s3client = AmazonS3ClientBuilder.standard().withCredentials(new DefaultAWSCredentialsProviderChain()).build()
+//  private val s3client = AmazonS3ClientBuilder.standard().withCredentials(new DefaultAWSCredentialsProviderChain()).build()
   private val lock: ReadWriteLock = new ReentrantReadWriteLock()
   private val currentDir = Paths.get(".").toAbsolutePath.toString
 
