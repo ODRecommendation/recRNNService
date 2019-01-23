@@ -14,20 +14,17 @@ RUN \
   apt-get install sbt && \
   apt-get -y install libiomp5
 
-## Define working directory
-#WORKDIR /
-#RUN mkdir modelFiles
-
 # Copy to directory
 COPY . .
 
-# Build to fat jar
-RUN sbt -J-Xmx4G clean assembly
+# Build fat jar
+RUN sbt -J-Xmx8G clean assembly
 
 EXPOSE 9000
 
-RUN chmod -R 777 /modelFiles
+RUN chmod -R 777 /modelFiles && \
+    chmod -R 777 /target/universal/stage/modelFiles
 
 USER sbt
 
-CMD ["java", "-Xmx2g", "-jar", "/target/scala-2.11/recrnnservice-assembly-1.0-SNAPSHOT.jar"]
+ENTRYPOINT ["/entrypoint.sh"]
