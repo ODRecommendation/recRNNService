@@ -11,9 +11,9 @@ import scala.concurrent.duration.Duration
 trait LoadModel {
 
   var params = ModelParams(
-    "./modelFiles/rnnModel",
-    "./modelFiles/skuIndexer.zip",
-    "./modelFiles/skuLookUp",
+    "modelFiles/rnnModel",
+    "modelFiles/skuIndexer.zip",
+    "modelFiles/skuLookUp",
     scala.util.Properties.envOrElse("configEnvironmewnt", "dev")
   )
   val numPredicts = 20
