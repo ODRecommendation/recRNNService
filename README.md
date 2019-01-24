@@ -26,14 +26,13 @@ dependencyOverrides += "com.google.guava" % "guava" % "17.0"
 ```
 
 ## How to run
+You need to have sbt installed on your machine
 Use terminal
 ```bash
 sbt runProd
 ``` 
-you need brew install sbt if necessary.
-
 Package code to one jar and run directly using the java command
-```scala
+```bash
 sbt -J-Xmx2G assembly
 java -Xmx2g -jar ${location of assembled jar}
 ```
