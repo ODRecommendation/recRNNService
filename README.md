@@ -77,28 +77,176 @@ None
 ``` 
 **Return:**
 ```json
-[
-    {
-        "predict1": "795756",
-        "probability1": 0.00000834272707940318
-    },
-    {
-        "predict2": "870284",
-        "probability2": 6.271142819772266e-11
-    },
-    {
-        "predict3": "798878",
-        "probability3": 0.00001927549222868919
-    },
-    {
-        "predict4": "803342",
-        "probability4": 4.941155854872043e-7
-    },
-    {
-        "predict5": "798284",
-        "probability5": 3.745753121038174e-7
+{
+    "0": {
+        "heading": "Office Depot top sellers",
+        "name": "content2_json",
+        "sku": [
+            {
+                "1": {
+                    "id": "9917369",
+                    "url": "N/A",
+                    "categoryID": "N/A",
+                    "categoryName": "N/A"
+                }
+            },
+            {
+                "2": {
+                    "id": "6979858",
+                    "url": "N/A",
+                    "categoryID": "N/A",
+                    "categoryName": "N/A"
+                }
+            },
+            {
+                "3": {
+                    "id": "604732",
+                    "url": "N/A",
+                    "categoryID": "N/A",
+                    "categoryName": "N/A"
+                }
+            },
+            {
+                "4": {
+                    "id": "2774708",
+                    "url": "N/A",
+                    "categoryID": "N/A",
+                    "categoryName": "N/A"
+                }
+            },
+            {
+                "5": {
+                    "id": "6630902",
+                    "url": "N/A",
+                    "categoryID": "N/A",
+                    "categoryName": "N/A"
+                }
+            },
+            {
+                "6": {
+                    "id": "4474320",
+                    "url": "N/A",
+                    "categoryID": "N/A",
+                    "categoryName": "N/A"
+                }
+            },
+            {
+                "7": {
+                    "id": "776948",
+                    "url": "N/A",
+                    "categoryID": "N/A",
+                    "categoryName": "N/A"
+                }
+            },
+            {
+                "8": {
+                    "id": "299388",
+                    "url": "N/A",
+                    "categoryID": "N/A",
+                    "categoryName": "N/A"
+                }
+            },
+            {
+                "9": {
+                    "id": "6979871",
+                    "url": "N/A",
+                    "categoryID": "N/A",
+                    "categoryName": "N/A"
+                }
+            },
+            {
+                "10": {
+                    "id": "147954",
+                    "url": "N/A",
+                    "categoryID": "N/A",
+                    "categoryName": "N/A"
+                }
+            },
+            {
+                "11": {
+                    "id": "282127",
+                    "url": "N/A",
+                    "categoryID": "N/A",
+                    "categoryName": "N/A"
+                }
+            },
+            {
+                "12": {
+                    "id": "178878",
+                    "url": "N/A",
+                    "categoryID": "N/A",
+                    "categoryName": "N/A"
+                }
+            },
+            {
+                "13": {
+                    "id": "485681",
+                    "url": "N/A",
+                    "categoryID": "N/A",
+                    "categoryName": "N/A"
+                }
+            },
+            {
+                "14": {
+                    "id": "351975",
+                    "url": "N/A",
+                    "categoryID": "N/A",
+                    "categoryName": "N/A"
+                }
+            },
+            {
+                "15": {
+                    "id": "460958",
+                    "url": "N/A",
+                    "categoryID": "N/A",
+                    "categoryName": "N/A"
+                }
+            },
+            {
+                "16": {
+                    "id": "470796",
+                    "url": "N/A",
+                    "categoryID": "N/A",
+                    "categoryName": "N/A"
+                }
+            },
+            {
+                "17": {
+                    "id": "465617",
+                    "url": "N/A",
+                    "categoryID": "N/A",
+                    "categoryName": "N/A"
+                }
+            },
+            {
+                "18": {
+                    "id": "493894",
+                    "url": "N/A",
+                    "categoryID": "N/A",
+                    "categoryName": "N/A"
+                }
+            },
+            {
+                "19": {
+                    "id": "4981958",
+                    "url": "N/A",
+                    "categoryID": "N/A",
+                    "categoryName": "N/A"
+                }
+            },
+            {
+                "20": {
+                    "id": "9809973",
+                    "url": "N/A",
+                    "categoryID": "N/A",
+                    "categoryName": "N/A"
+                }
+            }
+        ],
+        "atc": "true",
+        "type": "json"
     }
-]
+}
 ```  
 **Error_message:** ""Nah nah nah nah nah...this request contains bad characters...""
 
