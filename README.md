@@ -27,6 +27,7 @@ dependencyOverrides += "com.google.guava" % "guava" % "17.0"
 
 ## How to run
 You need to have sbt installed on your machine
+
 Use terminal
 ```bash
 sbt runProd
