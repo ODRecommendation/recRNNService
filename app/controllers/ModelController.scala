@@ -31,9 +31,6 @@ class ModelController @Inject()(cc: ControllerComponents) extends AbstractContro
       val requestJson = request.body.toString()
       val requestMap = mapper.readValue(requestJson, classOf[Map[String, Any]])
       val sku = requestMap("SKU_NUM").asInstanceOf[List[String]]
-      sku.foreach(
-        println(_)
-      )
       val skuIndex = sku.map(x => leapTransform(
         requestString = x, inputCol = "SKU_NUM", outputCol = "SKU_INDEX", transformer = params.skuIndexerModel.get, mapper = mapper
       ).toFloat).reverse.padTo(10, 0f).reverse
@@ -68,7 +65,6 @@ class ModelController @Inject()(cc: ControllerComponents) extends AbstractContro
                 }.head
             )
           )
-
         case None => Map("predict" -> "N/A", "probability" -> 0.0)
       }
 

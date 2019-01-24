@@ -26,10 +26,12 @@ dependencyOverrides += "com.google.guava" % "guava" % "17.0"
 ```
 
 ## How to run
-Using Intellij IDE
-```scala
+Use terminal
+```bash
 sbt runProd
-```
+``` 
+you need brew install sbt if necessary.
+
 Package code to one jar and run directly using the java command
 ```scala
 sbt -J-Xmx2G assembly
@@ -37,6 +39,7 @@ java -Xmx2g -jar ${location of assembled jar}
 ```
 
 ## API Introduction
+you can use postman to send request
 
 ### Check health
 **Path:** /`healthcheck`  
