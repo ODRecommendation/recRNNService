@@ -10,7 +10,7 @@ GET     /                      controllers.HomeController.index
 GET     /health                controllers.HealthCheckController.index
 
 # Run subscription model
-POST    /recModel     controllers.ModelController.recModel
+POST    /recModel              controllers.ModelController.recModel
 
 # OfficeDepot model versionCheck
 GET     /version               controllers.VersionCheckController.index

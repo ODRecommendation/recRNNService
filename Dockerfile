@@ -5,6 +5,13 @@ ENV SBT_VERSION  1.1.2
 ENV SBT_HOME /usr/local/sbt
 ENV PATH ${PATH}:${SBT_HOME}/bin
 
+EXPOSE 9000
+
+USER sbt
+
+# Copy to directory
+COPY . .
+
 # Install sbt
 RUN \
   curl -L -o sbt-$SBT_VERSION.deb http://dl.bintray.com/sbt/debian/sbt-$SBT_VERSION.deb && \
@@ -12,19 +19,9 @@ RUN \
   rm sbt-$SBT_VERSION.deb && \
   apt-get update && \
   apt-get install sbt && \
-  apt-get -y install libiomp5
-
-# Copy to directory
-COPY . .
-
-# Build fat jar
-RUN sbt -J-Xmx8G clean assembly
-
-EXPOSE 9000
-
-RUN chmod -R 777 /modelFiles && \
-    chmod -R 777 /target/universal/stage/modelFiles
-
-USER sbt
+  apt-get -y install libiomp5 && \
+  sbt -J-Xmx8G clean assembly && \
+  chmod -R 777 /modelFiles && \
+  chmod -R 777 /target/universal/stage/modelFiles
 
 ENTRYPOINT ["/entrypoint.sh"]
