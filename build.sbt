@@ -31,7 +31,7 @@ mainClass in assembly := Some("play.core.server.ProdServerStart")
 fullClasspath in assembly += Attributed.blank(PlayKeys.playPackageAssets.value)
 
 import com.typesafe.sbt.packager.MappingsHelper._
-mappings in Universal ++= directory(baseDirectory.value / "modelFiles")
+mappings in Universal ++= directory(baseDirectory.value / "tmp")
 
 assemblyMergeStrategy in assembly := {
   case manifest if manifest.contains("MANIFEST.MF") =>

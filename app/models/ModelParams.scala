@@ -77,10 +77,10 @@ object ModelParams {
       lock.readLock().lock()
       try {
 //        Some(ZooModel.loadModel[Float](path).asInstanceOf[Module[Float]])
-        Some(Module.loadModule[Float](path))
+        Some(Module.loadModule[Float](currentDir+ "/" + path))
       }
           catch {
-            case e: Exception => println(s"Cannot load bigDL model at $currentDir$path"); None
+            case e: Exception => println(s"Cannot load bigDL model at $currentDir/$path"); None
           }
       finally { lock.readLock().unlock() }
     }
@@ -99,7 +99,7 @@ object ModelParams {
         }).opt.get.root
       )
       catch {
-        case _: Exception => println(s"Cannot load Mleap model at $currentDir$modelPath"); None;
+        case _: Exception => println(s"Cannot load Mleap model at $currentDir/$modelPath"); None;
       }
       finally {
         lock.readLock().unlock()
@@ -128,7 +128,7 @@ object ModelParams {
     lock.readLock().lock()
     try Some(new File(currentDir + "/" + path).lastModified())
     catch {
-      case _: Exception => println(s"Cannot load model version at $currentDir$path"); None
+      case _: Exception => println(s"Cannot load model version at $currentDir/$path"); None
     }
     finally { lock.readLock().unlock() }
   }
