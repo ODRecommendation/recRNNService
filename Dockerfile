@@ -9,10 +9,8 @@ EXPOSE 9000
 
 USER sbt
 
-# Copy to directory
 COPY . .
 
-# Install sbt
 RUN \
   curl -L -o sbt-$SBT_VERSION.deb http://dl.bintray.com/sbt/debian/sbt-$SBT_VERSION.deb && \
   dpkg -i sbt-$SBT_VERSION.deb && \
