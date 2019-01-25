@@ -9,8 +9,6 @@ EXPOSE 9000
 
 USER sbt
 
-COPY . .
-
 RUN \
   curl -L -o sbt-$SBT_VERSION.deb http://dl.bintray.com/sbt/debian/sbt-$SBT_VERSION.deb && \
   dpkg -i sbt-$SBT_VERSION.deb && \
@@ -18,8 +16,11 @@ RUN \
   apt-get update && \
   apt-get install sbt && \
   apt-get -y install libiomp5 && \
-  sbt -J-Xmx8G clean assembly && \
-  chmod -R 777 /modelFiles && \
-  chmod -R 777 /target/universal/stage/modelFiles
+  sbt -J-Xmx8G clean assembly
+
+COPY . .
+
+RUN chmod -R 777 /modelFiles && \
+    chmod -R 777 /target/universal/stage/modelFiles
 
 ENTRYPOINT ["/entrypoint.sh"]
