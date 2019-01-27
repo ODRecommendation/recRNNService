@@ -76,7 +76,6 @@ object ModelParams {
     if (new File(currentDir+ "/" + path).exists()) {
       lock.readLock().lock()
       try {
-//        Some(ZooModel.loadModel[Float](path).asInstanceOf[Module[Float]])
         Some(Module.loadModule[Float](currentDir+ "/" + path))
       }
           catch {
