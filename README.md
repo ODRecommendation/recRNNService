@@ -248,6 +248,29 @@ None
     }
 }
 ```  
+
+### Update model
+**Path:** /`update`  
+**Methods:** POST  
+**Params:**  
+```json
+{
+  "type": "",
+  "model": {
+    "type": "recommendation",
+    "name": "recrnn",
+    "path": ""
+  },
+  "transformerPath": "",
+  "lookupPath": "" 
+}
+```  
+**Return:**
+```json
+{
+    "status": "success"
+}
+```
 **Error_message:** ""Nah nah nah nah nah...this request contains bad characters...""
 
 ## Contact & Feedback
