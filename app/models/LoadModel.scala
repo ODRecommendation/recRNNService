@@ -16,6 +16,7 @@ trait LoadModel {
     "tmp/skuLookUp",
     scala.util.Properties.envOrElse("configEnvironmewnt", "dev")
   )
+
   val numPredicts = 20
   val mapper = new ObjectMapper
   mapper.registerModule(DefaultScalaModule)

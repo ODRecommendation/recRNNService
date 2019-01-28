@@ -23,7 +23,7 @@ class UpdateModelController @Inject()(cc: ControllerComponents) extends Abstract
     * Create an Action to return @ModelController status.
     * The configuration in the `routes` file means that this method
     * will be called when the application receives a `POST` request with
-    * a path of `/recModel`.
+    * a path of `/update`.
     */
 
   def update: Action[JsValue] = Action(parse.json) { request =>
@@ -31,23 +31,27 @@ class UpdateModelController @Inject()(cc: ControllerComponents) extends Abstract
       val requestJson = request.body.toString()
       val requestMap = mapper.readValue(requestJson, classOf[Map[String, Any]])
       val modelType = requestMap("type").asInstanceOf[String]
-      val paramsNew = modelType match {
+      modelType match {
         case "recrnn" =>
-          ModelParams(
-            requestMap("modelPath").asInstanceOf[String],
-            requestMap("transformerPath").asInstanceOf[String],
-            requestMap("lookupPath").asInstanceOf[String],
-            scala.util.Properties.envOrElse("configEnvironmewnt", "dev")
+          ModelParams.refresh(
+            ModelParams(
+              requestMap("modelPath").asInstanceOf[String],
+              requestMap("transformerPath").asInstanceOf[String],
+              requestMap("lookupPath").asInstanceOf[String],
+              scala.util.Properties.envOrElse("configEnvironmewnt", "dev")
+            )
           )
         case "wnd" =>
-          ModelParams(
-            requestMap("modelPath").asInstanceOf[String],
-            requestMap("transformerPath").asInstanceOf[String],
-            requestMap("lookupPath").asInstanceOf[String],
-            scala.util.Properties.envOrElse("configEnvironmewnt", "dev")
+          ModelParams.refresh(
+            ModelParams(
+              requestMap("modelPath").asInstanceOf[String],
+              requestMap("useIndexerPath").asInstanceOf[String],
+              requestMap("itemIndexerPath").asInstanceOf[String],
+              requestMap("lookupPath").asInstanceOf[String],
+              scala.util.Properties.envOrElse("configEnvironmewnt", "dev")
+            )
           )
       }
-      var params = ModelParams.refresh(paramsNew)
       Ok(Json.obj("status" -> "ok"))
     }
 

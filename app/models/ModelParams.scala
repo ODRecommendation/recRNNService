@@ -10,13 +10,18 @@ import com.intel.analytics.bigdl.nn.Module
 import com.intel.analytics.bigdl.nn.abstractnn.{AbstractModule, Activity}
 import com.intel.analytics.bigdl.numeric.NumericFloat
 import com.intel.analytics.bigdl.utils.Engine
+import com.intel.analytics.zoo.models.common.ZooModel
+import com.intel.analytics.zoo.models.recommendation.Recommender
 import ml.combust.bundle.BundleFile
 import ml.combust.mleap.runtime.MleapSupport._
 import ml.combust.mleap.runtime.frame.Transformer
+import models.ModelParams.loadArrayFile
 import resource.managed
 
+import scala.io.Source
 
-case class ModelParams(
+
+case class RnnParams(
                         recModelPath: String,
                         skuIndexerModelPath: String,
                         skuLookUpPath: String,
@@ -28,6 +33,23 @@ case class ModelParams(
                         var skuIndexerModelVersion: Option[Long],
                         var skuLookUp: Option[List[(String, String)]]
                  )
+
+case class WndParams(
+                      wndModelPath: String,
+                      userIndexerModelPath: String,
+                      itemIndexerModelPath: String,
+                      atcArrayPath: String,
+                      env: String,
+                      bucketName: String,
+                      var wndModel: Option[Recommender[Float]],
+                      var wndModelVersion: Option[Long],
+                      var userIndexerModel: Option[Transformer],
+                      var userIndexerModelVersion: Option[Long],
+                      var itemIndexerModel: Option[Transformer],
+                      var itemIndexerModelVersion: Option[Long],
+                      var atcArray: Option[Array[String]],
+                      var atcArrayVersion: Option[Long]
+                    )
 
 object ModelParams {
 
@@ -44,7 +66,7 @@ object ModelParams {
              skuIndexerModelPath: String,
              skuLookUpPath: String,
              env: String
-           ): ModelParams = ModelParams(
+           ): RnnParams = RnnParams(
     recModelPath,
     skuIndexerModelPath,
     skuLookUpPath,
@@ -55,6 +77,29 @@ object ModelParams {
     loadMleap(skuIndexerModelPath),
     loadVersion(skuIndexerModelPath),
     loadLookUp(skuLookUpPath)
+  )
+
+  def apply(
+             wndModelPath: String,
+             userIndexerModelPath: String,
+             itemIndexerModelPath: String,
+             atcArrayPath: String,
+             env: String
+           ): WndParams = WndParams(
+    wndModelPath,
+    userIndexerModelPath,
+    itemIndexerModelPath,
+    atcArrayPath,
+    env,
+    if (env == "prod" || env == "canary") "ecomdatascience-p" else "ecomdatascience-np",
+    loadRecommender(wndModelPath),
+    loadVersion(wndModelPath),
+    loadMleap(userIndexerModelPath),
+    loadVersion(userIndexerModelPath),
+    loadMleap(itemIndexerModelPath),
+    loadVersion(itemIndexerModelPath),
+    loadArrayFile(atcArrayPath),
+    loadVersion(atcArrayPath)
   )
 
 //  def downloadModel(params: ModelParams): Any = {
@@ -81,6 +126,23 @@ object ModelParams {
           catch {
             case e: Exception => println(s"Cannot load bigDL model at $currentDir/$path"); None
           }
+      finally { lock.readLock().unlock() }
+    }
+    else {
+      println(s"Cannot update bigDL model at $currentDir$path")
+      None
+    }
+  }
+
+  def loadRecommender(path: String) = {
+    if (new File(currentDir+ "/" + path).exists()) {
+      lock.readLock().lock()
+      try {
+        Some(ZooModel.loadModel[Float](path).asInstanceOf[Recommender[Float]])
+      }
+      catch {
+        case e: Exception => println(s"Cannot load bigDL model at $currentDir$path"); None
+      }
       finally { lock.readLock().unlock() }
     }
     else {
@@ -132,12 +194,33 @@ object ModelParams {
     finally { lock.readLock().unlock() }
   }
 
-  def refresh(params: ModelParams): ModelParams = {
+  def loadArrayFile(path: String): Option[Array[String]] = {
+    lock.readLock().lock()
+    try Some(Source.fromFile(currentDir + "/" + path).getLines().drop(1)
+      .flatMap(_.split(",")).toArray)
+    catch {
+      case _: Exception => println(s"Cannot load array at $currentDir$path"); None
+    }
+    finally { lock.readLock().unlock() }
+  }
+
+  def refresh(params: RnnParams): RnnParams = {
     params.recModel = loadBigDL(params.recModelPath)
     params.recModelVersion = loadVersion(params.recModelPath)
     params.skuIndexerModel = loadMleap(params.skuIndexerModelPath)
     params.skuIndexerModelVersion = loadVersion(params.skuIndexerModelPath)
+    params
+  }
 
+  def refresh(params: WndParams): WndParams = {
+    params.wndModel = loadRecommender(params.wndModelPath)
+    params.wndModelVersion = loadVersion(params.wndModelPath)
+    params.userIndexerModel = loadMleap(params.userIndexerModelPath)
+    params.userIndexerModelVersion = loadVersion(params.userIndexerModelPath)
+    params.itemIndexerModel = loadMleap(params.itemIndexerModelPath)
+    params.itemIndexerModelVersion = loadVersion(params.itemIndexerModelPath)
+    params.atcArray = loadArrayFile(params.atcArrayPath)
+    params.atcArrayVersion = loadVersion(params.atcArrayPath)
     params
   }
 
