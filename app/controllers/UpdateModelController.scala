@@ -1,14 +1,9 @@
 package controllers
 
-import com.intel.analytics.bigdl.dataset.Sample
-import com.intel.analytics.bigdl.numeric.NumericFloat
-import com.intel.analytics.bigdl.optim.LocalPredictor
-import com.intel.analytics.bigdl.tensor.Tensor
 import javax.inject._
 import models.{LoadModel, ModelParams}
 import play.api.libs.json._
 import play.api.mvc._
-import utilities.Helper._
 
 import scala.collection.immutable.Map
 
@@ -30,8 +25,7 @@ class UpdateModelController @Inject()(cc: ControllerComponents) extends Abstract
     try {
       val requestJson = request.body.toString()
       val requestMap = jsonMapper.readValue(requestJson, classOf[Map[String, Any]])
-      val modelType = requestMap("type").asInstanceOf[String]
-      modelType match {
+      mType match {
         case "recrnn" =>
           ModelParams.refresh(
             ModelParams(
@@ -56,7 +50,7 @@ class UpdateModelController @Inject()(cc: ControllerComponents) extends Abstract
     }
 
     catch{
-      case e: Exception => BadRequest(e.printStackTrace())
+      case e: Exception => BadRequest("Bad request")
     }
   }
 }
