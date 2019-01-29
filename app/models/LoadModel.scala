@@ -4,22 +4,28 @@ import java.util.concurrent.TimeUnit
 
 import akka.actor.{ActorSystem, Scheduler}
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
+import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
 
 import scala.concurrent.duration.Duration
 
 trait LoadModel {
 
+  val numPredicts = 20
+
+  val yamlMapper = new ObjectMapper(new YAMLFactory()) with ScalaObjectMapper
+
+  val configYaml = ModelParams.loadConfig("./conf/modelConfig").get
+  val config = yamlMapper.readValue[Map[String, String]](configYaml.reader())
+
   var params = ModelParams(
-    "tmp/rnnModel",
-    "tmp/skuIndexer.zip",
-    "tmp/skuLookUp",
+    config("modelPath"),
+    config("transformerPath").toString,
+    config("lookupPath").toString,
     scala.util.Properties.envOrElse("configEnvironmewnt", "dev")
   )
 
-  val numPredicts = 20
-  val mapper = new ObjectMapper
-  mapper.registerModule(DefaultScalaModule)
 
 //  val actorSystem = ActorSystem()
 //  val scheduler: Scheduler = actorSystem.scheduler
@@ -42,6 +48,8 @@ trait LoadModel {
 //    interval = Duration(30, TimeUnit.MINUTES),
 //    runnable = task)
 
+  val jsonMapper = new ObjectMapper
+  jsonMapper.registerModule(DefaultScalaModule)
 
 
 }

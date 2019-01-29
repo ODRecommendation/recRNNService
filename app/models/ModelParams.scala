@@ -15,11 +15,9 @@ import com.intel.analytics.zoo.models.recommendation.Recommender
 import ml.combust.bundle.BundleFile
 import ml.combust.mleap.runtime.MleapSupport._
 import ml.combust.mleap.runtime.frame.Transformer
-import models.ModelParams.loadArrayFile
 import resource.managed
 
 import scala.io.Source
-
 
 case class RnnParams(
                         recModelPath: String,
@@ -116,6 +114,15 @@ object ModelParams {
 //    }
 //    finally { lock.writeLock().unlock() }
 //  }
+
+  def loadConfig(path: String) = {
+    lock.readLock().lock()
+    try Some(Source.fromFile(path))
+    catch {
+      case _: Exception => println(s"Cannot load readConfig at $path"); None
+    }
+    finally { lock.readLock().unlock() }
+  }
 
   def loadBigDL(path: String) = {
     if (new File(currentDir+ "/" + path).exists()) {

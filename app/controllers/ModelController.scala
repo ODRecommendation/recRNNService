@@ -29,10 +29,10 @@ class ModelController @Inject()(cc: ControllerComponents) extends AbstractContro
   def recModel: Action[JsValue] = Action(parse.json) { request =>
     try {
       val requestJson = request.body.toString()
-      val requestMap = mapper.readValue(requestJson, classOf[Map[String, Any]])
+      val requestMap = jsonMapper.readValue(requestJson, classOf[Map[String, Any]])
       val sku = requestMap("SKU_NUM").asInstanceOf[List[String]]
       val skuIndex = sku.map(x => leapTransform(
-        requestString = x, inputCol = "SKU_NUM", outputCol = "SKU_INDEX", transformer = params.skuIndexerModel.get, mapper = mapper
+        requestString = x, inputCol = "SKU_NUM", outputCol = "SKU_INDEX", transformer = params.skuIndexerModel.get, mapper = jsonMapper
       ).toFloat).reverse.padTo(10, 0f).reverse
 
       val inputSample = Array(Sample(Tensor(skuIndex.toArray, Array(10))))
@@ -68,7 +68,7 @@ class ModelController @Inject()(cc: ControllerComponents) extends AbstractContro
         case None => Map("predict" -> "N/A", "probability" -> 0.0)
       }
 
-      val predictionJson = mapper.writeValueAsString(predict)
+      val predictionJson = jsonMapper.writeValueAsString(predict)
 
       Ok(Json.parse(predictionJson.toString))
     }

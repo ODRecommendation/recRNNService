@@ -29,7 +29,7 @@ class UpdateModelController @Inject()(cc: ControllerComponents) extends Abstract
   def update: Action[JsValue] = Action(parse.json) { request =>
     try {
       val requestJson = request.body.toString()
-      val requestMap = mapper.readValue(requestJson, classOf[Map[String, Any]])
+      val requestMap = jsonMapper.readValue(requestJson, classOf[Map[String, Any]])
       val modelType = requestMap("type").asInstanceOf[String]
       modelType match {
         case "recrnn" =>
