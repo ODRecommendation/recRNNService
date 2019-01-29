@@ -1,10 +1,10 @@
-# sample recrnn serving config
+# Sample recrnn serving config
 #type: recrnn
 #modelPath: tmp/rnnModel
 #transformerPath: tmp/skuIndexer.zip
 #lookupPath: tmp/skuLookUp
 
-# sample WND serving config
+# Sample WND serving config
 type: wnd
 modelPath: tmp/WDModel
 useIndexerPath: tmp/userIndexer.zip

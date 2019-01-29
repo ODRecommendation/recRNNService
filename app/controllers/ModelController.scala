@@ -28,7 +28,7 @@ class ModelController @Inject()(cc: ControllerComponents) extends AbstractContro
     * a path of `/recModel`.
     */
 
-  def recModel: Action[JsValue] = Action(parse.json) { request =>
+  def inference: Action[JsValue] = Action(parse.json) { request =>
     try {
       val requestJson = request.body.toString()
       val requestMap = jsonMapper.readValue(requestJson, classOf[Map[String, Any]])

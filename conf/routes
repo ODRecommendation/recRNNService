@@ -10,7 +10,7 @@ GET     /                      controllers.HomeController.index
 GET     /health                controllers.HealthCheckController.index
 
 # Run model
-POST    /recModel              controllers.ModelController.recModel
+POST    /inference              controllers.ModelController.inference
 
 # Update model
 POST    /update              controllers.UpdateModelController.update
