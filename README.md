@@ -28,7 +28,7 @@ dependencyOverrides += "com.google.guava" % "guava" % "17.0"
 ```
 
 ## How to run
-####Model config file
+#### Model config file
 To launch the webservice, you need to supply a modelConfig file first (conf/modelConfig), see below example:
 ```yaml
 # Sample WND serving config
@@ -40,12 +40,12 @@ lookupPath: tmp/ATCSKU.csv
 ```
 Current webservice support session recommender and wide and deep model trained by Analytics Zoo
 
-####Use terminal
+#### Use terminal
 You need to have sbt installed on your machine
 ```bash
 sbt runProd
 ``` 
-####Package code to one jar and run directly using the java command
+#### Package code to one jar and run directly using the java command
 ```bash
 sbt -J-Xmx2G assembly
 java -Xmx2g -jar ${location of assembled jar}
