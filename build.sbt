@@ -15,7 +15,7 @@ val mleapVersion = "0.12.0"
 
 libraryDependencies += guice
 libraryDependencies += "com.intel.analytics.zoo" % "analytics-zoo-bigdl_0.7.1-spark_2.3.1" % analyticsZooVersion
-libraryDependencies += "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion
+//libraryDependencies += "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion
 libraryDependencies += "com.fasterxml.jackson.dataformat" % "jackson-dataformat-yaml" % jacksonVersion
 libraryDependencies += "com.amazonaws" % "aws-java-sdk" % "1.11.354"
 libraryDependencies += "ml.combust.mleap" %% "mleap-spark" % mleapVersion

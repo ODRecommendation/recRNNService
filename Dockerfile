@@ -1,7 +1,7 @@
 FROM openjdk:8
 
 # Define env variables
-ENV SBT_VERSION 0.13
+ENV SBT_VERSION 1.2.1
 ENV SBT_HOME /usr/local/sbt
 ENV PATH ${PATH}:${SBT_HOME}/bin
 
