@@ -1,4 +1,4 @@
-# RNN based recommendation service using BigDL, Mleap, and Play
+# Zoo serving using Analytics Zoo, Mleap, and Play
 A generic webservice framework to serve models trained by Analytics Zoo and Spark using Analytics Zoo, Mleap, and Play
 
 ## Requirements
