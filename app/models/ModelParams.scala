@@ -19,6 +19,8 @@ import resource.managed
 
 import scala.io.Source
 
+abstract class Models
+
 case class RnnParams(
                         recModelPath: String,
                         skuIndexerModelPath: String,
@@ -30,7 +32,7 @@ case class RnnParams(
                         var skuIndexerModel: Option[Transformer],
                         var skuIndexerModelVersion: Option[Long],
                         var skuLookUp: Option[List[(String, String)]]
-                 )
+                 ) extends Models
 
 case class WndParams(
                       wndModelPath: String,
@@ -47,7 +49,7 @@ case class WndParams(
                       var itemIndexerModelVersion: Option[Long],
                       var atcArray: Option[Array[String]],
                       var atcArrayVersion: Option[Long]
-                    )
+                    ) extends Models
 
 object ModelParams {
 

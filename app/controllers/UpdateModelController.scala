@@ -56,7 +56,7 @@ class UpdateModelController @Inject()(cc: ControllerComponents) extends Abstract
     }
 
     catch{
-      case _:Exception => BadRequest("Nah nah nah nah nah...this request contains bad characters...")
+      case e: Exception => BadRequest(e.printStackTrace())
     }
   }
 }
