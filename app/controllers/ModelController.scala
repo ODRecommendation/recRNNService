@@ -79,8 +79,8 @@ class ModelController @Inject()(cc: ControllerComponents) extends AbstractContro
           val requestMap = jsonMapper.readValue(requestJson, classOf[Map[String, String]])
           val sku = requestMap("COOKIE_ID")
           val atc = requestMap("SKU_NUM")
-          val uid = leapTransformWnd(sku, "COOKIE_ID", "userId", wndParams.userIndexerModel.get, jsonMapper)
-          val iid = leapTransformWnd(atc, "SKU_NUM", "itemId", wndParams.itemIndexerModel.get, jsonMapper)
+          val uid = leapTransform(sku, "COOKIE_ID", "userId", wndParams.userIndexerModel.get, jsonMapper)
+          val iid = leapTransform(atc, "SKU_NUM", "itemId", wndParams.itemIndexerModel.get, jsonMapper)
 
           println(Files.exists(Paths.get("./modelFiles/userIndexer.zip")))
 

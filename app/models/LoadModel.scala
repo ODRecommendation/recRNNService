@@ -48,5 +48,4 @@ trait LoadModel {
     embedOutDims = Array(20, 11),
     continuousCols = Array("interval_avg_day_cnt", "STAR_RATING_AVG", "reviews_cnt")
   )
-
 }
