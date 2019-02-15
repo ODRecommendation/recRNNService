@@ -6,12 +6,14 @@ version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
+resolvers += "ossrh repository" at "https://oss.sonatype.org/content/repositories/snapshots/"
+
 scalaVersion := "2.11.12"
 
 val jacksonVersion = "2.6.7"
-val sparkVersion = "2.3.1"
-val bigDlVersion = "0.7.1"
-val analyticsZooVersion = "0.3.0"
+val sparkVersion = "2.4.0"
+val bigDlVersion = "0.7.2"
+val analyticsZooVersion = "0.4.0"
 val mleapVersion = "0.12.0"
 
 libraryDependencies += guice
